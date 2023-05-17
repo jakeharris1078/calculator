@@ -166,3 +166,10 @@ button:active,
 #clear-btn:active {
   background-color: grey;
 }
+
+@media (min-width: 40rem) {
+  body {
+    width: 30rem;
+    margin: auto;
+  }
+}

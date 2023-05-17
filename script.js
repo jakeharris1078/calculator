@@ -36,113 +36,37 @@ const resultDisplay = document.getElementById('result');
 //last character of display
 let lastCharDisplay;
 
-const numberConditions = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-const operatorConditions = ['+', '-', '*', '/', '^'];
-
 /////////////////////////////////FUNCTIONALITY
 
-//debug
-debugBtn.addEventListener('click', function () {
-  // resultDisplay.innerText = 'test';
-  lastCharDisplay = resultDisplay.innerText.charAt(
-    resultDisplay.innerText.length - 1
-  );
-  console.log(
-    `lastchar is ${lastCharDisplay} type of lastchar is ${typeof lastCharDisplay}`
-  );
-});
-
-clearBtn.addEventListener('click', function () {
-  resultDisplay.innerText = '';
-});
-
-btn1.addEventListener('click', function () {
+//functionality for number buttons
+const numberFilterFunction = function (number) {
   if (resultDisplay.innerText === '0') {
-    resultDisplay.innerHTML = '1';
+    resultDisplay.innerText = `${number}`;
   } else {
-    resultDisplay.innerText += '1';
+    resultDisplay.innerText += `${number}`;
   }
-});
+};
 
-btn2.addEventListener('click', function () {
-  if (resultDisplay.innerText === '0') {
-    resultDisplay.innerHTML = '2';
-  } else {
-    resultDisplay.innerText += '2';
-  }
-});
+btn1.addEventListener('click', numberFilterFunction.bind(this, 1));
+btn2.addEventListener('click', numberFilterFunction.bind(this, 2));
+btn3.addEventListener('click', numberFilterFunction.bind(this, 3));
+btn4.addEventListener('click', numberFilterFunction.bind(this, 4));
+btn5.addEventListener('click', numberFilterFunction.bind(this, 5));
+btn6.addEventListener('click', numberFilterFunction.bind(this, 6));
+btn7.addEventListener('click', numberFilterFunction.bind(this, 7));
+btn8.addEventListener('click', numberFilterFunction.bind(this, 8));
+btn9.addEventListener('click', numberFilterFunction.bind(this, 9));
+btn0.addEventListener('click', numberFilterFunction.bind(this, 0));
 
-btn3.addEventListener('click', function () {
-  if (resultDisplay.innerText === '0') {
-    resultDisplay.innerHTML = '3';
-  } else {
-    resultDisplay.innerText += '3';
-  }
-});
-
-btn4.addEventListener('click', function () {
-  if (resultDisplay.innerText === '0') {
-    resultDisplay.innerHTML = '4';
-  } else {
-    resultDisplay.innerText += '4';
-  }
-});
-
-btn5.addEventListener('click', function () {
-  if (resultDisplay.innerText === '0') {
-    resultDisplay.innerHTML = '5';
-  } else {
-    resultDisplay.innerText += '5';
-  }
-});
-
-btn6.addEventListener('click', function () {
-  if (resultDisplay.innerText === '0') {
-    resultDisplay.innerHTML = '6';
-  } else {
-    resultDisplay.innerText += '6';
-  }
-});
-
-btn7.addEventListener('click', function () {
-  if (resultDisplay.innerText === '0') {
-    resultDisplay.innerHTML = '7';
-  } else {
-    resultDisplay.innerText += '7';
-  }
-});
-
-btn8.addEventListener('click', function () {
-  if (resultDisplay.innerText === '0') {
-    resultDisplay.innerHTML = '8';
-  } else {
-    resultDisplay.innerText += '8';
-  }
-});
-
-btn9.addEventListener('click', function () {
-  if (resultDisplay.innerText === '0') {
-    resultDisplay.innerHTML = '9';
-  } else {
-    resultDisplay.innerText += '9';
-  }
-});
-
-btn0.addEventListener('click', function () {
-  if (resultDisplay.innerText === '0') {
-    resultDisplay.innerHTML = '0';
-  } else {
-    resultDisplay.innerText += '0';
-  }
-});
-
+//fix this logic - should only disallow if the current number already has a decimal point
 btnPeriod.addEventListener('click', function () {
   if (!resultDisplay.innerText.includes('.')) {
     resultDisplay.innerText += '.';
   }
 });
 
-btnPlus.addEventListener('click', function () {
+//functionality for operator buttons
+const operatorFilterFunction = function (operator) {
   lastCharDisplay = resultDisplay.innerText.charAt(
     resultDisplay.innerText.length - 1
   );
@@ -156,84 +80,17 @@ btnPlus.addEventListener('click', function () {
       lastCharDisplay.includes('*')
     )
   ) {
-    resultDisplay.innerText += '+';
+    resultDisplay.innerText += operator;
   }
-});
+};
 
-btnMinus.addEventListener('click', function () {
-  lastCharDisplay = resultDisplay.innerText.charAt(
-    resultDisplay.innerText.length - 1
-  );
-  if (
-    !(
-      lastCharDisplay.includes('^') ||
-      lastCharDisplay.includes('+') ||
-      lastCharDisplay.includes('-') ||
-      lastCharDisplay.includes('.') ||
-      lastCharDisplay.includes('/') ||
-      lastCharDisplay.includes('*')
-    )
-  ) {
-    resultDisplay.innerText += '-';
-  }
-});
+btnMinus.addEventListener('click', operatorFilterFunction.bind(this, '-'));
+btnPlus.addEventListener('click', operatorFilterFunction.bind(this, '+'));
+btnDivide.addEventListener('click', operatorFilterFunction.bind(this, '/'));
+btnMultiply.addEventListener('click', operatorFilterFunction.bind(this, '*'));
+btnExponent.addEventListener('click', operatorFilterFunction.bind(this, '^'));
 
-btnDivide.addEventListener('click', function () {
-  lastCharDisplay = resultDisplay.innerText.charAt(
-    resultDisplay.innerText.length - 1
-  );
-  if (
-    !(
-      lastCharDisplay.includes('^') ||
-      lastCharDisplay.includes('+') ||
-      lastCharDisplay.includes('-') ||
-      lastCharDisplay.includes('.') ||
-      lastCharDisplay.includes('/') ||
-      lastCharDisplay.includes('*')
-    )
-  ) {
-    resultDisplay.innerText += '/';
-  }
-});
-
-btnMultiply.addEventListener('click', function () {
-  lastCharDisplay = resultDisplay.innerText.charAt(
-    resultDisplay.innerText.length - 1
-  );
-  if (
-    !(
-      lastCharDisplay.includes('^') ||
-      lastCharDisplay.includes('+') ||
-      lastCharDisplay.includes('-') ||
-      lastCharDisplay.includes('.') ||
-      lastCharDisplay.includes('/') ||
-      lastCharDisplay.includes('*')
-    )
-  ) {
-    resultDisplay.innerText += '*';
-  }
-});
-
-//NOTE - need to do special coding for this one. convert ^ to ** for the math part
-btnExponent.addEventListener('click', function () {
-  lastCharDisplay = resultDisplay.innerText.charAt(
-    resultDisplay.innerText.length - 1
-  );
-  if (
-    !(
-      lastCharDisplay.includes('^') ||
-      lastCharDisplay.includes('+') ||
-      lastCharDisplay.includes('-') ||
-      lastCharDisplay.includes('.') ||
-      lastCharDisplay.includes('/') ||
-      lastCharDisplay.includes('*')
-    )
-  ) {
-    resultDisplay.innerText += '^';
-  }
-});
-
-//functionality for delete button
+//functionality for delete and clear buttons
 deleteBtn.addEventListener('click', function () {
   let newString = resultDisplay.innerText.substring(
     0,
@@ -249,11 +106,34 @@ deleteBtn.addEventListener('click', function () {
   }
 });
 
+clearBtn.addEventListener('click', function () {
+  resultDisplay.innerText = '';
+});
+
 ///////////////features to implement
 //result needs to display entered information, then display result after equals button is clicked
-//need to refactor everything once it's done
 
 //functionality for equals button
 //if result is way too large or way too small, display ERROR
 //slice out numbers, then slice out operators, then make it into a math problem, then print the result to the results bar
 equalsBtn.addEventListener('click', function () {});
+
+const numsRegex = /[*+\-/\^]/;
+const operatorsRegex = /(?:\d+\.)?\d+/g;
+const identifyLastNumber = function () {
+  let numbersOnly = [resultDisplay.innerText.split(numsRegex)];
+  console.log(numbersOnly);
+
+  let operatorsOnly = [resultDisplay.innerText.split(operatorsRegex)];
+  //need to slice out the first and last elements
+  console.log(operatorsOnly);
+
+  const lastNum = resultDisplay.innerText.substring(
+    resultDisplay.innerText.length,
+    resultDisplay.innerText.lastIndexOf('-') + 1
+  );
+  // console.log(lastNum);
+};
+
+//debug
+debugBtn.addEventListener('click', identifyLastNumber);
